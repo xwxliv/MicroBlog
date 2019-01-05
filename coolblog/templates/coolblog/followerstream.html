@@ -1,0 +1,60 @@
+{% extends "grumblr/base.html" %}
+{% load widget_tweaks %}
+{% block title %}Follower Stream{% endblock %}
+
+{% block content %}
+    {% load static %}
+    <script src="{% static 'grumblr/js/followerstream.js' %}" type="text/javascript"></script>
+    <!--profile session-->
+    <div class="jumbotron p-100 md-100 text-white rounded bg-dark text-center">
+        <h3 class="font-weight-light">{{ username }} is following...</h3>
+    </div>
+
+    <!--Posts-->
+    {% for key, value in posts.items %}
+        <div class="d-flex flex-row justify-content-center pb-1 pt-2 align-self-center">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-250" style="width: 30rem;">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <div class="mb-1 text-muted">
+                        <img id="postimage" src="/static/grumblr{{ value.image }}">
+                        <a href="/userstream?username={{ value.username }}">{{ value.username }}</a>
+                        on {{ value.time }}
+                    </div>
+
+                    <p class="card-text mb-auto">
+                        {{ value.content }}
+                    </p>
+                    <hr>
+
+                    <div id="comment">
+                        <form method="post" class="add_comment" id="{{ value.id }}">
+                            {% csrf_token %}
+                            <input type="text" name="comment_content" id="new{{ value.id }}" class="form-control">
+                            <input type="hidden" name="pid" id="pid" value="{{ value.id }}">
+                            <input type="submit" name="comment" value="Comment">
+                        </form>
+                        <hr>
+                        <div id="user_comments{{ value.id }}">
+                            {% for key, comment in comments.items %}
+                                {% if comment.post_id == value.id %}
+                                    <div class="mb-1 text-muted">
+                                        <img id="postimage" src="/static/grumblr{{ comment.image }}">
+                                        <a href="/userstream?username={{ comment.username }}">{{ comment.username }}</a>
+                                        on {{ comment.time }}
+                                    </div>
+
+                                    <p class="card-text mb-auto">
+                                        {{ comment.content }}
+                                    </p>
+                                    <br>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

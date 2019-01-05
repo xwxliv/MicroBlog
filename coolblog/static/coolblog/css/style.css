@@ -1,0 +1,58 @@
+#mainfont {
+    font-size: 22px;
+}
+
+/*h5 {*/
+    /*line-height: 30px;*/
+    /*height: 40px;*/
+/*}*/
+
+img {
+    width: 30px;
+    height: 30px;
+}
+
+#font {
+    font-size: 22px;
+}
+
+#login_form {
+    width: 70%;
+}
+
+label{
+    display: block;
+}
+
+input[type="submit"] {
+    text-align:center;
+}
+
+#profileimage {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+#postimage {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+#nav {
+    font-size: 18px;
+}
+
+#username {
+    color: darkgreen;
+}
+
+#success {
+    color: #721c24;
+}
+
+#greeting {
+    color: #a30029;
+}
+

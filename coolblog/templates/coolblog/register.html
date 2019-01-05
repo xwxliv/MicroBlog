@@ -1,0 +1,26 @@
+{% extends "grumblr/base.html" %}
+{% load widget_tweaks %}
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+    <div style="width: 50%" >
+        <form class="form" action="{% url 'signup' %}" method="post">
+            <h2 class="h3 mb-3 font-weight-bold">Please fill out:</h2>
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+                {% if field.help_text %}
+                        <p class="help text-sm text-muted">{{ field.help_text|safe }}</p>
+                {% endif %}
+            {% endfor %}
+            <button type="submit" class="btn btn lg btn-primary btn-block">Register</button>
+            <input type="hidden" name="next" value="{{ next }}"/>
+        </form>
+        <div class="d-flex justify-content-center text-sm">
+                <a href={% url 'login' %}>Already have an account?</a>
+        </div>
+    </div>
+
+{% endblock %}

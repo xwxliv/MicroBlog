@@ -1,0 +1,46 @@
+{% extends "grumblr/base.html" %}
+{% load widget_tweaks %}
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+    <div class="row mb-2">
+        <div class="col-7">
+            <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+
+                    <h1 class="display-3 font-italic"> Welcome to my Grumblr</h1>
+                    <p class="lead my-3" id="mainfont">
+                        This is an increasingly sophisticated nano-blogging site, ​grumblr​.
+                        grumblr​ will eventually be a featureful, interactive web
+                        application including user registration and authentication,
+                        email integration for user verification, photo upload, and
+                        quasi-real-time updates.
+                    </p>
+
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="mx-auto">
+                <h1>Log-in</h1>
+                <div class="login-form">
+                    <form action="{% url 'login' %}" method="post">
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}" />
+
+                    <p><input type="submit" value="Log-in"></p>
+                    <a class="text-center" href={% url 'signup' %}>Create an account</a><br>
+                    or <br>
+                    <a class="text-center" href="{% url 'resetpassword' %}">Forgot password</a>
+                    </form>
+                    {% if error %}
+                        <h5 class="text-danger">Your username and password didn't match.</h5>
+                    {% endif %}
+                    {% for error in errors %}
+                            <h5 class="text-danger">{{ error }}</h5>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

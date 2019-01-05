@@ -1,0 +1,45 @@
+{% extends "grumblr/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Edit your profile{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Edit your profile</h3>
+                        <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+                            <h6>Upload a different profile image</h6>
+                            {% csrf_token %}
+                            <input type="file" class="text-center center-block file-upload" name="img">
+                            <input class="btn btn-primary" type="submit" name="upload" value="Upload">
+                        </form>
+                        {% if success %}
+                            <p id="success">Uploaded Successfully!</p>
+                        {% endif %}
+
+                        <h5>No chosen file or Not a .jpg or .png file will set you a default image</h5>
+                        <hr>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <form action="{% url 'info' %}" method="post">
+                        {% csrf_token %}
+                        <h6>{{ form.age.label }}</h6>
+                        <span>{{ form.age|add_class:"form-control" }}</span>
+
+                        <h6>{{ form.bio.label }}</h6>
+                        <span>{{ form.bio|add_class:"form-control" }}</span>
+                        <input class="btn btn-primary" type="submit" name="save" value="Save">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% for error in validate %}
+        <span class="badge badge-danger">{{ error }}</span>
+    {% endfor %}
+
+{% endblock %}
